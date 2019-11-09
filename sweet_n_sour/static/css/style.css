@@ -1,0 +1,31 @@
+body {
+    background-color: #efeee7;
+}
+
+p {
+    font-size: 14px;
+}
+
+
+.navbar-dark {
+    padding-left: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    background-color: #000000 !important;
+}
+
+.navbar-dark .navbar-brand
+{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.border {
+    border-width:3px !important;
+}
+
+#map-title {
+    font-family: 'Helvetica Neue, monospace', Arial, sans-serif;
+    font-size: 24px;
+    color: '#000000';
+}
