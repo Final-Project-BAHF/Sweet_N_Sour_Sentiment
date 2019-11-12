@@ -23,10 +23,12 @@ def get_article_list(session, ticker):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
         'pragma': 'no-cache',
-        'sec-fetch-mode': 'navigate',
+        'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'none',
         'sec-fetch-user': '?1',
-        'upgrade-insecure-requests': '1'
+        'upgrade-insecure-requests': '1',
+        'cache-control': 'no-cache',
+        'referer': articles_url
     }
 
     # Retrieve page with the requests module
@@ -95,10 +97,12 @@ def get_call_content(session, call_url, ticker):
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
         'pragma': 'no-cache',
-        'sec-fetch-mode': 'navigate',
+        'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'none',
         'sec-fetch-user': '?1',
-        'upgrade-insecure-requests': '1'
+        'upgrade-insecure-requests': '1',
+        'cache-control': 'no-cache',
+        'referer': call_url
     }
 
     # Retrieve page with the requests module
@@ -187,7 +191,7 @@ def get_call_content(session, call_url, ticker):
             if (p.contents[0].name != 'strong'):
 
                 # we found a name, parse name and company
-                print(p.text) # DEBUG
+                #print(p.text) # DEBUG
                 name, company = re.split('\s[–-]\s',p.text)
                 
                 # populate participant name and company into call dictionary
