@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <title>Sweet N' Sour Sentiment</title>
+</head>
+
+<body class="ml-3 mr-3">
+<h1>Sweet N' Sour Sentiment - API</h1>
+<p>The following API endpoints are available:</p>
+<br>
+<hr>
+<br>
+<p><b>Get Transcripts: </b>/api/get-scripts/&lt;ticker&gt;/&lt;num-scripts&gt; -- browses SeekingAlpha.com for the requested ticker and retrieves the 
+    number of Earnings Call Scripts specified in the 2nd parameter. The most recent <i>n</i> scripts will be retrieved.<br>
+<br>
+Argument - <i>&lt;ticker&gt;</i> - the stock ticker symbol for the desired company<br>
+Argument - <i>&lt;num-scripts&gt;</i> - the number of most recent Earnings Call Transcripts to retrieve<br>
+</p>
+<p>
+For example: <a href='./api/get-scripts/GE/1'>/api/get-scripts/GE/1</a>
+</p>
+<p>
+Returns - json with list of objects (one for each transcript requested) in the following format:<br>
+{<br>
+    &nbsp;&nbsp;<b>'ticker'</b>: ticker symbol of company,<br>
+    &nbsp;&nbsp;<b>'eps_info'</b>: text describing the EPS performance compared to analyst estimates,<br>
+    &nbsp;&nbsp;<b>'revenue_info'</b>: text describing the Revenue performance compared to analyst estimates,<br>
+    &nbsp;&nbsp;<b>'call_title'</b>: title of earnings call -- contains date and time of the call,<br>
+    &nbsp;&nbsp;<b>'company_participants'</b>: [{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'name': Participant Name,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'company': Participant Employer,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'affiliation': 'host'  <i>#indicates this participant is a member of the hosting company for the call</i><br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;...<br>
+    &nbsp;&nbsp;],<br>
+    &nbsp;&nbsp;<b>'call_participants'</b>: [{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'name': Participant Name,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'company': Participant Employer,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'affiliation': 'guest'  <i>#indicates this participant is a guest attendee of the call</i><br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;...<br>
+    &nbsp;&nbsp;],<br>
+    &nbsp;&nbsp;<b>'paragraphs'</b>: [{<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'speaker': name of speaker,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'content': paragraph of text from transcription for this given speaker,<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;    'call_section': specifies the section of the call in which this content was spoken ('presentation', 'operator_instruction', 'question', 'answer')<br>
+    &nbsp;&nbsp;}<br>
+    &nbsp;&nbsp;...<br>
+    &nbsp;&nbsp;]<br>
+}<br>
+</p>
+</body>
+
+</html>
