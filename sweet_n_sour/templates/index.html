@@ -3,17 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="../static/css/style.css">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <title>Sweet N' Sour Sentiment</title>
+  <title>Sentimental Heartbreak</title>
 </head>
 
 <body class="ml-3 mr-3">
-<h1>Sweet N' Sour Sentiment - Homepage</h1>
+
+      <!-- Navbar with dark background -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand bg-info" href="./">Sentimental Heartbreak</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
+  
+              <!-- ml-auto moves the menu items to the right side -->
+              <ul class="navbar-nav ml-auto">
+              
+              <!-- Home link -->
+              <li class="nav-item active">
+                  <a class="nav-link" href="./">Home <span class="sr-only">(current)</span></a>
+              </li>
+
+              <!-- Visualization
+              <li class="nav-item">
+                  <a class="nav-link" href="./viz">Vis Doc</a>
+              </li> -->
+  
+              <!-- Data link -->
+              <!-- <li class="nav-item">
+                  <a class="nav-link" href="./data">Data Details</a>
+              </li> -->
+
+              <!-- API link -->
+              <li class="nav-item">
+                  <a class="nav-link" href="./api">API Details</a>
+              </li>
+              
+              </ul>
+          </div>
+      </nav>
+    <!--  Main Content of Page using grid -->
+    <div class="container mt-5 mb-5" >
+        <div class="row">
+
+          <!-- Main column -->
+          <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-info">Summary - Sentiment - Sweet and Sour:</h5>
+                  <img src="/static/img/EODUS.png" class="float-left mr-3 mb-3 mt-3" width="100" height="auto">
+                  <p class="card-text">
+                      This project seeks to analyze the Earnings Statements using sentiment analysis. 
+                      Can automated sentiment analysis of a Company’s quarterly earnings call
+                      provide a glimpse of the short-term price movements to come during trading hours? For our final
+                      project, we will analyze the earnings call transcripts (text) of [100] of the largest companies in
+                      the United States, which are listed on a national stock exchange, indicated by their presence in
+                      the highly monitored “Standard and Poor 500 Index”. Specifically, we will look to analyze the sentiment
+                      within the following categories of the earnings call: i) management presentation, ii) Wall Street
+                      sell-side analyst questions, and iii) corresponding management answers to those questions.
+                  </p>
+                  <p>
+                      <b>Preliminary Hypothesis: </b><i>A higher “sentiment score” rating across a Company’s earnings call
+                        transcript will indicate more positive stock price movement during the market trading day
+                        following the call. Conversely, lower “sentiment scores” across the earnings call transcript will
+                        indicate negative stock price movement during the market trading day following the call.
+                        </i>
+                  </p>
+                  <p>
+                    <b>Null Hypothesis: </b><i>There is no relationship between the CEO rambling and the next day activity of the realted stock.</i>
+                </p>
+                  <p>In order to perform this analysis, we will train our own data using a list of over 3000 sentences then test against captured statements from S&P 500 earning statements
+                     References: 
+                     <a href="https://seekingalpha.com/earnings/earnings-call-transcripts"> Earnings Transcripts</a>
+                     <a href="https://www.quandl.com/data/EOD-End-of-Day-US-Stock-Prices?filterSelection=all"
+                                           Daily Stock Price Quandl Data Link</a>
+                    </p>
+                  <p>
+                      The following user acceptance tests were performed on the acquired data to ensure acceptable quality:
+                      <ul>
+                      <li><p><b> Test 1: </b>ensured that....
+                      </p></li>
+                      <li><p><b>Test 2: </b>Made sure...
+                       </p></li>
+                       </ul>
+                  </p>
+                  <p>Once the training data was created, sentiment analysis is used against S&P 500 earnings statements. We then visualize the data in a user-friendly manner.  
+                    Integrating scatter plot and K-means chart onto a single page with linked user interactions allowed us to easily analyze the data points and determine if a trend existed.
+                    The linear regression performed resulted in xxxxxxxxxxxxxxxxx, but the correlation between the Sentiment and Stock Performance          and Debt to Income ratio was xxxxxx.  Thus we are xxunablexx to reject the null hypothesis for the data analyzed.
+                  </p>
+                </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title text-info">Team Members:</h5>
+                  <p>
+                    Joseph Ayala<br>
+                    Andrew Behrman<br>
+                    Michael Fox<br>
+                    Michael Hankinson                  
+                  </p>
+                </div>
+            </div><br>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-info">Sample Visualizations:</h5><br>
+                <img src="static/img/candy.png" width="300"><br>
+                <br>
+                <img src="/static/img/bar.png" width="300">
+              </div>
+            </div><br>
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title text-info">Technology Used:</h5>
+                <p>
+                  Python<br>
+                  Javascript<br>
+                  HTML<br>
+                  K-nearest<br>
+                  CSS<br>
+                  Pandas (python)<br>
+                  Flask (python)<br>
+                  SqlAlchemy (python)<br>
+                  PostgreSQL<br>
+                  Plotly (js)<br>
+                  Plotly (python)<br>
+                  Slick Slider (js)<br>
+                  Heroku<br>
+                  Bootstrap<br>
+                  D3 (js)<br>
+                </p>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>  
+
 </body>
 
 </html>
