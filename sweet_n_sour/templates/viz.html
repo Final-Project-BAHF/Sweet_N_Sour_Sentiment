@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/> 
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.5.0/d3.min.js"></script>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  
+  <title>Fiscal Heartbreak</title>
+</head>
+
+<body class="ml-3 mr-3">
+
+      <!-- Navbar with dark background -->
+      <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand bg-info" href="./">Fiscal Heartbreak</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse pr-5" id="navbarSupportedContent">
+  
+              <!-- ml-auto moves the menu items to the right side -->
+              <ul class="navbar-nav ml-auto">
+              
+              <!-- Home link -->
+              <li class="nav-item">
+                  <a class="nav-link" href="./">Home </a>
+              </li>
+
+              <!-- Visualization -->
+              <li class="nav-item active">
+                  <a class="nav-link" href="./viz">Visualization <span class="sr-only">(current)</span></a>
+              </li>
+  
+              <!-- Data link -->
+              <!-- <li class="nav-item">
+                  <a class="nav-link" href="./data">Data Details</a>
+              </li> -->
+
+              <!-- API link -->
+              <li class="nav-item">
+                  <a class="nav-link" href="./api">API Details</a>
+              </li>
+              
+              </ul>
+          </div>
+      </nav>
+
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12" id="div-year-selector">
+        <select id="selYear" onchange="yearChanged(this.value)">
+          <option value="2015">2015</option>
+          <option value="2016">2016</option>
+          <option value="2017">2017</option>
+        </select>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="div-case-study">
+          <text class="btn btn-link info" onclick="toggleMap(this)" id="Idaho">Click for 'Idaho' Case Study</text>
+        </div>
+    </div>
+    <div class="row">
+      <div class="slider-single-item col-md-12">
+          <div class="card">
+            <!-- <div class="card-title d-flex justify-content-center" id="map-title">
+              2015 - Debt to Income Ratio
+            </div> -->
+            <div class="card-body">
+              <div class="d-flex justify-content-center" id="county-map">
+                  <img src="/static/img/country-2015.png" height="450">
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-8" id="scatter-plot" style="height:450px;">
+                  </div>
+                  <div class="col-md-4">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <td>Measure</td>
+                          <td>Value</td>
+                        </tr>
+                      </thead>
+                      <tr>
+                        <th scope="row">slope</td>
+                        <td id="slope"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">intercept</td>
+                        <td id="intercept"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">p-value (slope)</td>
+                        <td id="p-value"></td>
+                      </tr>
+                      <tr>
+                        <th scope="row">r-squared</td>
+                        <td id="r-squared"></td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <div id="scatter-plot">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="container d-flex justify-content-center" id="slider-controls">
+        <div class="prev btn btn-link info">previous</div>
+        <div class="next btn btn-link info">next</div>
+      </div>
+    </div>
+    <br><br>
+    <div class="row">
+      <div class="col-md-12" id="div-county-selector">
+       <select id="selCounty" onchange="countyChanged(this.value)"></select>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-12" id="bar-chart">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="static/js/slick_scripts.js"></script>
+<script src="static/js/appAB.js"></script>
+<script src="static/js/appJA.js"></script>
+<script src="static/js/appMF.js"></script>
+
+</html>
+
