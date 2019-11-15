@@ -21,6 +21,10 @@ def get_article_list(session, ticker):
     articles_url = base_url + '/symbol/' + ticker + '/earnings/transcripts'
 
     headers = {
+        'authority': 'seekingalpha.com',
+        'method': 'GET',
+        'path': '/symbol/ORCL/earnings/transcripts',
+        'scheme': 'https',
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
         'pragma': 'no-cache',
         'sec-fetch-mode': 'no-cors',
@@ -33,6 +37,11 @@ def get_article_list(session, ticker):
 
     # Retrieve page with the requests module
     response = session.get(articles_url, headers=headers)
+
+    #DEBUG
+    #print(response)
+    #print(response.text)
+    #
 
     # Create BeautifulSoup object; parse with 'lxml'
     soup = bs(response.text, 'lxml')
