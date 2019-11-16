@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 import requests
-import scrape
+#from sweet_n_sour.modules import scrape
+from modules import scrape
 
 #################################################
 # Flask Setup
