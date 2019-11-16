@@ -1,5 +1,19 @@
 from bs4 import BeautifulSoup as bs
 import re
+import pandas as pd
+from splinter import Browser
+
+# specify url for chrome browser to use for scraping
+executable_path = {'executable_path': '/usr/local/bin/chromedriver'}
+
+#import os
+#print(os.getcwd())
+
+# get list of agents from file
+df_agents = pd.read_csv('./static/data/agents.csv')
+
+def getNewAgent():
+    return df_agents.sample().iloc[0,0]
 
 def get_article_list(session, ticker):
     """Return a list of dictionaries detailing the articles found for the requested ticker. 
@@ -25,7 +39,7 @@ def get_article_list(session, ticker):
         'method': 'GET',
         'path': '/symbol/ORCL/earnings/transcripts',
         'scheme': 'https',
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
+        'User-Agent': getNewAgent(),
         'pragma': 'no-cache',
         'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'none',
@@ -38,6 +52,12 @@ def get_article_list(session, ticker):
     # Retrieve page with the requests module
     response = session.get(articles_url, headers=headers)
 
+   # prepare browser for script control
+    #browser = Browser('chrome', **executable_path, headless=True)
+
+    # navigate to the site hosting the featured image
+    #browser.visit(articles_url)
+
     #DEBUG
     #print(response)
     #print(response.text)
@@ -45,6 +65,7 @@ def get_article_list(session, ticker):
 
     # Create BeautifulSoup object; parse with 'lxml'
     soup = bs(response.text, 'lxml')
+    #soup = bs(browser.html, 'lxml')
 
     # collect news articles
     articles = soup.find_all('div', class_="symbol_article")
@@ -61,6 +82,8 @@ def get_article_list(session, ticker):
                 'title': article_title,
                 'url': article_url
             })
+
+    #browser.quit()
 
     return articles_details
 
@@ -104,7 +127,7 @@ def get_call_content(session, call_url, ticker):
        """
 
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.87 Safari/537.36',
+        'User-Agent': getNewAgent(),
         'pragma': 'no-cache',
         'sec-fetch-mode': 'no-cors',
         'sec-fetch-site': 'none',
@@ -114,11 +137,18 @@ def get_call_content(session, call_url, ticker):
         'referer': call_url
     }
 
+   # prepare browser for script control
+    #browser = Browser('chrome', **executable_path, headless=True)
+
+    # navigate to the site hosting the featured image
+    #browser.visit(call_url)
+
     # Retrieve page with the requests module
     response = session.get(call_url, headers=headers)
 
     # Create BeautifulSoup object; parse with 'lxml'
     soup = bs(response.text, 'lxml')
+    #soup = bs(browser.html, 'lxml')
 
     # collect paragraphs
     paragraphs = soup.find_all('p')
@@ -347,5 +377,7 @@ def get_call_content(session, call_url, ticker):
 
     # append final p to call_dict
     call_dict['paragraphs'].append(current_p)
+
+    #browser.quit()
 
     return call_dict
