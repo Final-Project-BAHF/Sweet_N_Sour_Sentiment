@@ -31,16 +31,11 @@
                   <a class="nav-link" href="./">Home <span class="sr-only">(current)</span></a>
               </li>
 
-              <!-- Visualization
+              <!-- Visualization -->
               <li class="nav-item">
-                  <a class="nav-link" href="./viz">Vis Doc</a>
-              </li> -->
+                  <a class="nav-link" href="./viz">Vizualisation</a>
+              </li> 
   
-              <!-- Data link -->
-              <!-- <li class="nav-item">
-                  <a class="nav-link" href="./data">Data Details</a>
-              </li> -->
-
               <!-- API link -->
               <li class="nav-item">
                   <a class="nav-link" href="./api">API Details</a>
@@ -58,7 +53,7 @@
             <div class="card">
                 <div class="card-body">
                   <h5 class="card-title text-info">Summary - Sentiment - Sweet and Sour:</h5>
-                  <img src="/static/img/EODUS.png" class="float-left mr-3 mb-3 mt-3" width="100" height="auto">
+                  <img src="/static/img/sour.png" class="float-left mr-3 mb-3 mt-3" width="100" height="auto">
                   <p class="card-text">
                       This project seeks to analyze the Earnings Statements using sentiment analysis. 
                       Can automated sentiment analysis of a Company’s quarterly earnings call
@@ -77,22 +72,25 @@
                         </i>
                   </p>
                   <p>
-                    <b>Null Hypothesis: </b><i>There is no relationship between the CEO rambling and the next day activity of the realted stock.</i>
-                </p>
+                    <b>Null Hypothesis: </b><i>There is no relationship between the Earnings call and the next day activity of the related stock.
+                                            </i>
+                  </p>
                   <p>In order to perform this analysis, we will train our own data using a list of over 3000 sentences then test against captured statements from S&P 500 earning statements
-                     References: 
-                     <a href="https://seekingalpha.com/earnings/earnings-call-transcripts"> Earnings Transcripts</a>
-                     <a href="https://www.quandl.com/data/EOD-End-of-Day-US-Stock-Prices?filterSelection=all"
-                                           Daily Stock Price Quandl Data Link</a>
-                    </p>
+                  <li>   References: 
+                  <a href="https://seekingalpha.com/earnings/earnings-call-transcripts"> Earnings Transcripts
+                  </a>
+                  </li>
+                  </p>
                   <p>
-                      The following user acceptance tests were performed on the acquired data to ensure acceptable quality:
-                      <ul>
-                      <li><p><b> Test 1: </b>ensured that....
-                      </p></li>
-                      <li><p><b>Test 2: </b>Made sure...
-                       </p></li>
-                       </ul>
+                  The following user acceptance tests were performed on the acquired data to ensure acceptable quality:
+                  <ul>
+                  <li><p><b> Test 1: </b>K-means with vectorization was performed on 3000 sentences with multiple cluster number attempts but no meaningful conclusions drawn although we did find that most data ended up in 2 of 10 clusters.
+                      </p>
+                  </li>
+                  <li><p><b>Test 2: </b>We would put joe's model here....you decide...
+                      </p>
+                  </li>
+                  </ul>
                   </p>
                   <p>Once the training data was created, sentiment analysis is used against S&P 500 earnings statements. We then visualize the data in a user-friendly manner.  
                     Integrating scatter plot and K-means chart onto a single page with linked user interactions allowed us to easily analyze the data points and determine if a trend existed.
@@ -101,7 +99,7 @@
                 </div>
             </div>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8 ml-auto">
             <div class="card">
                 <div class="card-body">
                   <h5 class="card-title text-info">Team Members:</h5>
