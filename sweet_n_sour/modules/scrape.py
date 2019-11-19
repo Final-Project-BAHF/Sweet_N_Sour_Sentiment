@@ -50,13 +50,13 @@ def get_article_list(session, ticker):
     }
 
     # Retrieve page with the requests module
-    response = session.get(articles_url, headers=headers)
+    #response = session.get(articles_url, headers=headers)
 
    # prepare browser for script control
-    #browser = Browser('chrome', **executable_path, headless=True)
+    browser = Browser('chrome', **executable_path, headless=True, user_agent=getNewAgent())
 
     # navigate to the site hosting the featured image
-    #browser.visit(articles_url)
+    browser.visit(articles_url)
 
     #DEBUG
     #print(response)
@@ -64,8 +64,8 @@ def get_article_list(session, ticker):
     #
 
     # Create BeautifulSoup object; parse with 'lxml'
-    soup = bs(response.text, 'lxml')
-    #soup = bs(browser.html, 'lxml')
+    #soup = bs(response.text, 'lxml')
+    soup = bs(browser.html, 'lxml')
 
     # collect news articles
     articles = soup.find_all('div', class_="symbol_article")
@@ -83,9 +83,27 @@ def get_article_list(session, ticker):
                 'url': article_url
             })
 
-    #browser.quit()
+    browser.quit()
 
     return articles_details
+
+def getEpsDeltaPct(raw_html):
+    eps_pct_delta = 0
+
+    eps_soup = bs(raw_html, 'lxml')
+
+    try:
+        analyst_info = eps_soup.find('div',{"class": "data-line"}).find_all('div')
+        EPS_line = analyst_info[0].text
+        tokens = EPS_line.split(' ')
+        eps = tokens[2][1:]
+        delta_eps = tokens[-1][1:]
+        eps_estimate = round((float(eps)-float(delta_eps)),2)
+        eps_pct_delta = round((float(delta_eps) / eps_estimate),5)
+    except:
+        print('caught error while looking for eps delta, keep default of 0')
+
+    return eps_pct_delta
 
 def get_call_content(session, call_url, ticker):
     """Return a dictionary detailing the requested transcript 
@@ -138,17 +156,17 @@ def get_call_content(session, call_url, ticker):
     }
 
    # prepare browser for script control
-    #browser = Browser('chrome', **executable_path, headless=True)
+    browser = Browser('chrome', **executable_path, headless=True, user_agent=getNewAgent())
 
     # navigate to the site hosting the featured image
-    #browser.visit(call_url)
+    browser.visit(call_url)
 
     # Retrieve page with the requests module
-    response = session.get(call_url, headers=headers)
+    #response = session.get(call_url, headers=headers)
 
     # Create BeautifulSoup object; parse with 'lxml'
-    soup = bs(response.text, 'lxml')
-    #soup = bs(browser.html, 'lxml')
+    #soup = bs(response.text, 'lxml')
+    soup = bs(browser.html, 'lxml')
 
     # collect paragraphs
     paragraphs = soup.find_all('p')
@@ -156,7 +174,7 @@ def get_call_content(session, call_url, ticker):
     # prep dictionary for transcript
     call_dict = {
         'ticker': ticker,
-        'eps_info': '',
+        'eps_info': getEpsDeltaPct(browser.html),
         'revenue_info': '',
         'call_title': '',
         'company_participants': [],
